@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--  jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <title>Edit TV Show</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3" style="text-align: center;">Edit {{ edit_show_info.title }}</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="/shows/{{ edit_show_info.id }}/edit" autocomplete="off" method="POST">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="input-group-prepend col-sm-2">
+                    <span class="input-group-text">Title: </span>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" id="title" name="title" class="form-control" value="{{ edit_show_info.title }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="input-group-prepend col-sm-2">
+                    <span class="input-group-text">Network: </span>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" id="network" name="network" class="form-control" value="{{ edit_show_info.network }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="input-group-prepend col-sm-2">
+                    <span class="input-group-text">Release Date: </span>
+                </div>                
+                <div class="form-group col-sm-10 date">
+                    <input class="form-control" id="release_date" name="release_date" value="{{ edit_show_info.release_date }}" type="text"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="input-group-prepend col-sm-2">
+                    <span class="input-group-text">Description: </span>
+                </div>                
+                <div class="col-sm-10">
+                    <textarea class="form-control" aria-label="Description: " id="description" name="description">{{ edit_show_info.description }}</textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary float-right mb-5">Update</button>
+        </form>
+
+        <div class="container">
+            <a href="/shows/{{edit_show_info.id}}">Go to Show</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+        var date_input=$('input[name="release_date"]');
+        var container=$('.date form').length>0 ? $('.date form').parent() : "body";
+        var options={
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+        })
+    </script>
+</body>
+</html>
+
+<!-- https://formden.com/blog/date-picker -->
