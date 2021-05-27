@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, date
+import datetime as dt
 
 class Show_Manager(models.Manager):
     def basic_validator(self, post_data):
@@ -20,9 +20,9 @@ class Show_Manager(models.Manager):
         if post_data["release_date"].isalpha() == True:
             errors["release_date"] = "Release Date must be a valid date"
         if len(post_data["release_date"]) > 0:
-            date_entered = datetime.strptime(post_data["release_date"], "%m/%d/%Y")
-            date_today = date.today().strftime("%m/%d/%y")
-            d3 = datetime.strptime(date_today, "%m/%d/%y")
+            date_entered = dt.strptime(post_data["release_date"], "%m/%d/%Y")
+            date_today = dt.today().strftime("%m/%d/%y")
+            d3 = dt.strptime(date_today, "%m/%d/%Y")
             if date_entered > d3:
                 errors["release_date"] = "Release Date must be in the past"
 

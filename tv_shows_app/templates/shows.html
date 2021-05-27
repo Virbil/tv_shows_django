@@ -40,7 +40,7 @@
                     <td hidden>{{ show.id }}</td>
                     <td>{{ show.title }}</td>
                     <td>{{ show.network }}</td>
-                    <td>{{ show.release_date }}</td>
+                    <td>{{ show.release_date | date:'F d, Y' }}</td>
                     <td><a href="{% url 'show_info' show_id=show.id %}">Show</a></td>
                     <td><a href="{% url 'edit_show_info' show_id=show.id %}">Edit</a></td>
                     <td><a href="{% url 'delete_show' show_id=show.id %}">Delete</a></td>
